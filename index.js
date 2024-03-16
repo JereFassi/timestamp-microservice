@@ -30,16 +30,16 @@ app.get("/api/", (req, res) => {
     const date = new Date();
     result = {
       unix: date.getTime(),
-      utc: date,
+      utc: date.toUTCString(),
     }
   }
   res.json(result);
 });
 
-app.get("/api/:date", (req, res) => {
+app.get("/api/:date?", (req, res) => {
   const inputDate = req.params.date;
   let result = {};
-  let validDate = {};
+  let validDate = new Date();
   if (isNaN(inputDate)) {
     validDate = new Date(inputDate);
   } else {
@@ -50,7 +50,7 @@ app.get("/api/:date", (req, res) => {
   } else {
     result = {
       unix: validDate.getTime(),
-      utc: validDate
+      utc: validDate.toUTCString(),
     }
   }
   res.json(result);
